@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="kaosz-generator" default="jar" basedir=".">
+	
+	<property name="build" value="build"/>
+	<property name="dist" value="dist"/>
+	<property name="lib" value="lib"/>
+	<property name="src" value="src"/>
+	<property name="data" value="data"/>
+    
+	<path id="master-classpath">
+	  <fileset dir="${lib}">
+	    <include name="*.jar"/>
+	  </fileset>
+	</path>
+	
+     <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+	
+	<target name="compile" depends="clean">
+        <mkdir dir="${build}"/>
+		<copy todir="${build}/data" >  
+			<fileset dir="${data}" includes="**"/>  
+		</copy>
+        <javac srcdir="${src}" destdir="${build}" debug="true">
+        	<classpath refid="master-classpath"/>
+	    </javac>
+	</target>
+                                           
+    <target name="jar" depends="compile">
+        <mkdir dir="${dist}"/>
+        <jar destfile="${dist}/${ant.project.name}_v0.1.2.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="kaosz.view.KaoszGenerator"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${build}"/>
+            <zipfileset excludes="META-INF/*.SF" src="${lib}/xercesImpl.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${lib}/xml-apis.jar"/>
+        </jar>
+    </target>
+	
+</project>
