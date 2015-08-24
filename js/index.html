@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+  <meta charset="UTF-8"> 
+    <script src="script/resource/angular.min.js"></script>
+    <script src="script/resource/xml2json.min.js"></script>
+    <script src="script/kaosz.js"></script>
+  </head>
+  <body>
+
+    <div ng-app="kaoszApp" ng-controller="kaoszCtrl">
+      <div ng-show="loading">
+	Töltés
+      </div>
+      <div>
+	Név: <input type="text" ng-model="karakter.nev">
+      </div>
+      <div>
+        Leírás: <textarea rows="4" cols="50" ng-model="karakter.leiras"> </textarea>
+      </div>
+      <div>
+        Faj: {{karakter.faj}}
+      </div>
+      
+      <div>
+	Fajok:
+	<ul>
+	  <li ng-repeat="faj in fajok.faj">
+	    <label>
+	      <input type="radio" ng-model="karakter.faj" ng-value="faj.nev">
+	      {{ faj.nev }}
+	    </label>
+	  </li>
+	</ul>
+      </div>
+    
+    
+    </div>
+  </body>
+</html>
