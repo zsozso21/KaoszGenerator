@@ -12,14 +12,100 @@
       <div ng-show="loading">
 	Töltés
       </div>
+      
       <div>
-	Név: <input type="text" ng-model="karakter.nev">
+	Név: <input type="text" ng-model="karakter.nev" />
       </div>
       <div>
         Leírás: <textarea rows="4" cols="50" ng-model="karakter.leiras"> </textarea>
       </div>
       <div>
-        Faj: {{karakter.faj}}
+        Faj: {{karakter.faj.nev}}
+      </div>
+      
+      <div>
+	Főérték pontok: {{eloszthatoFoertekPontok()}} <br />
+	Jártasság pontok: {{eloszthatoJartassagPontok()}} <br />
+	Maximálisan tanulható jártasságszint: {{maxjartassagszint()}}
+      </div>
+      
+      
+      <div>
+	Pontosztás:
+	<div>
+	  <label>
+	    <input type="radio" ng-model="karakter.pontosztas" value="szabalyos" />
+	    Szabályok szerint
+	  </label>
+	</div>
+	
+	<div>
+	  <label>
+	    <input type="radio" ng-model="karakter.pontosztas" value="egyeni" />
+	    Egyéni
+	  </label>
+	</div>
+	
+	<div ng-show="karakter.pontosztas==consts.standard">
+	  <div>
+	    <label>
+	      <input type="radio" ng-model="karakter.korosztaly.nev" value="juvenis" />
+	      Juvenis
+	    </label>
+	  </div>
+	  <div>
+	    <label>
+	      <input type="radio" ng-model="karakter.korosztaly.nev" value="adultus" />
+	      Adultus
+	    </label>
+	  </div>
+	  <div>
+	    <label>
+	      <input type="radio" ng-model="karakter.korosztaly.nev" value="senius" />
+	      Senius
+	    </label>
+	  </div>
+	  
+	  <div ng-show="karakter.korosztaly.nev==consts.juvenis">
+	    <div>
+	      Főérték pontok(%):
+	      <input type="number" ng-model="karakter.korosztaly.juvenis.foertekpontok" min=50 max=80 />
+	    </div>
+	    <div>
+	      Jártasság pontok(%):
+	      <input type="number" ng-model="karakter.korosztaly.juvenis.jartassagpontok" min=30 max=80 />
+	    </div>
+	  </div>
+	  
+	  <div ng-show="karakter.korosztaly.nev==consts.senius">
+	    <div>
+	      Főérték pontok(%):
+	      <input type="number" ng-model="karakter.korosztaly.senius.foertekpontok" min=50 max=80 />
+	    </div>
+	    <div>
+	      Jártasság pontok(%):
+	      <input type="number" ng-model="karakter.korosztaly.senius.jartassagpontok" min=200 max=500 />
+	    </div>
+	    <div>
+	      Maximálisan tanulható jártasságszint:
+	      <input type="number" ng-model="karakter.korosztaly.senius.maxjartassagszint" min=3 max=10 />
+	    </div>
+	  </div>
+	</div>
+	<div ng-show="karakter.pontosztas==consts.custom">
+	  <div>
+	    Elosztható főérték pontok:
+	    <input type="number" ng-model="karakter.egyenipontosztas.foertekpontok" min=0 />
+	  </div>
+	  <div>
+	    Elosztható jártasság pontok:
+	    <input type="number" ng-model="karakter.egyenipontosztas.jartassagpontok" min=0 />
+	  </div>
+	  <div>
+	    Maximálisan tanulható jártasságszint:
+	    <input type="number" ng-model="karakter.egyenipontosztas.maxjartassagszint" min=1 max=10 />
+	  </div>
+	</div>
       </div>
       
       <div>
@@ -27,11 +113,21 @@
 	<ul>
 	  <li ng-repeat="faj in fajok.faj">
 	    <label>
-	      <input type="radio" ng-model="karakter.faj" ng-value="faj.nev">
+	      <input type="radio" ng-model="karakter.faj" ng-value="faj" />
 	      {{ faj.nev }}
 	    </label>
 	  </li>
 	</ul>
+      </div>
+            
+      <div>
+	Főértékek:
+	<div>
+	  <label>
+	    <input type="number" ng-model="karakter.foertekek.fizikum" min="{{karakter.faj.foertek.fizikum.min}}" />
+	    {{karakter.faj.foertek.fizikum.min}}
+	  </label>
+	</div>
       </div>
     
     
