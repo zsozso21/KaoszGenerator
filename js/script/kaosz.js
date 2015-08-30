@@ -94,6 +94,10 @@ app.controller('kaoszCtrl', ['$scope', '$http', function($scope, $http) {
       return 0;
     }
     
+    if ($scope.karakter.faj === undefined) {
+      return 0;
+    }
+    
     return $scope.karakter.faj.maximalisJartassagszint;
     
   };
